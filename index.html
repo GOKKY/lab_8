@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Поїздник Максим ТЗ-92</title>
+    </head>
+        <style>
+            #rectangle {
+            width: 270px;
+            height: 130px;
+            background: white;
+            margin-top: -125px;
+            position: relative;
+            }
+        </style>
+    <body>
+        <script type="text/javascript">
+            let countDesigner = countDevs = countManags = 0;
+            function Developer(Name, Surname, BasicSalary, Exp) {
+                this.Name = Name;
+                this.Surname = Surname;
+                this.BasicSalary = BasicSalary;
+                this.Exp = Exp;
+                if (Exp > 0 && Exp <= 2) {
+                    this.countedSalary = this.BasicSalary;
+                }
+                if (Exp > 2 && Exp <= 5) {
+                    this.countedSalary = this.BasicSalary + 200;
+                }
+                if (Exp > 5) {
+                    this.countedSalary = this.BasicSalary * 1.2 + 500;
+                }
+                countDevs++;
+                return;
+            }
+
+            function Designer(Name, Surname, BasicSalary, Exp, Сoefficient) {
+                this.Name = Name;
+                this.Surname = Surname;
+                this.BasicSalary = BasicSalary;
+                this.Exp = Exp;
+                if (Exp > 0 && Exp <= 2) {
+                    this.countedSalary = this.BasicSalary;
+                }
+                if (Exp > 2 && Exp <= 5) {
+                    this.countedSalary = this.BasicSalary + 200;
+                }
+                if (Exp > 5) {
+                    this.countedSalary = this.BasicSalary * 1.2 + 500;
+                }
+                if (Сoefficient > 1 || Сoefficient < 0) {
+                    console.log("Неправильний кофіцієнт");
+                    return false;
+                }
+                countDesigner++;
+                this.Сoefficient = Сoefficient;
+                this.countedSalary *= Сoefficient;
+                return;
+            }
+
+
+            function Manager(Name, Surname, BasicSalary, Exp, Team) {
+                this.Name = Name;
+                this.Surname = Surname;
+                this.BasicSalary = BasicSalary;
+                this.Exp = Exp;
+                this.Team = Team;
+                if (Exp > 0 && Exp <= 2) {
+                    this.countedSalary = this.BasicSalary;
+                }
+                if (Exp > 2 && Exp <= 5) {
+                    this.countedSalary = this.BasicSalary + 200;
+                }
+                if (Exp > 5) {
+                    this.countedSalary = this.BasicSalary * 1.2 + 500;
+                }
+                if (Team.length > 5 && Team.length <= 10) {
+                    this.countedSalary += 200;
+                }
+                if (Team.length > 10) {
+                    this.countedSalary += 300;
+                }
+                for (let i = 0; i < Team.length; i++) {
+                    if (typeof(this.Team) == Developer) {
+                    countDevs++;
+                    }
+                    if (typeof(this.Team) == Designer) {
+                        countDesigner++;
+                    }
+                }
+                if (countDevs > (countDevs + countDesigner) / 2) {
+                    this.countedSalary *= 1.1;
+                }
+                return;
+            }
+
+            function Department (Manager) {
+                this.Manager = Manager;
+                this.Workers = Manager.Team;
+                this.giveSalary = function() {
+                    
+                    for (let i = 0; i < this.Manager.Team.length; i++) {
+                        document.write(`${this.Manager.Team[i].Name + "&nbsp" + this.Manager.Team[i].Surname + " отримав " + this.Manager.Team[i].countedSalary + " гривень"}<br/>`);
+
+                    }
+                    for (let i = 0; i < this.Manager.Team.length; i++) {
+                        document.write(`${this.Manager.Name + "&nbsp" + this.Manager.Surname + " отримала " + this.Manager.countedSalary + " гривень"}<br/>`);
+                    }
+
+
+                }
+            }
+
+
+            let Employee_1 = new Designer("Максим", "Поїздник", 2500, 1, 1);
+            let Employee_2 = new Designer("Андрій", "Кошмак", 2500, 2, 0.1);
+            let Employee_3 = new Designer("Антон", "Кугут", 2500, 4, 0.5);
+            let Employee_4 = new Developer("Діма", "Ярошінський", 2700, 5);
+            let Employee_5 = new Developer("Данило", "Кулиняк", 2700, 6);
+            let Employee_6 = new Developer("Богдан", "Шуркін", 2700, 6);
+            let Employee_7 = new Developer("Федор", "Буланов", 2700, 6);
+            let Employee_8 = new Developer("Богач", "Богдан", 2700, 6);
+            let Employee_0 = new Manager("Надія", "Денищич", 3000, 10, [Employee_1,Employee_2, Employee_3, Employee_4, Employee_5, Employee_6, Employee_7, Employee_8]);
+            let depart = new Department(Employee_0);
+
+            depart.giveSalary();
+        </script>
+        <div id="rectangle"></div>
+        
+    </body>
+</html>
